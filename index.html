@@ -1,424 +1,229 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>บันทึกออกกำลัง – สายแรงต้าน</title>
-  <meta name="theme-color" content="#22c55e" />
-  <link rel="manifest" href="manifest.webmanifest">
-  <style>
-    :root {
-      --bg:#0b1320;
-      --card:#121c2e;
-      --muted:#9aa4b2;
-      --text:#f5f7fb;
-      --accent:#22c55e;
-      --accent-2:#16a34a;
-      --danger:#ef4444;
-      --warn:#f59e0b;
-      --radius:16px;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, 'Noto Sans Thai', Arial, sans-serif;
-      background:linear-gradient(180deg, #0b1320, #0a1020);
-      color:var(--text);
-    }
-    .container{
-      max-width:900px;
-      margin:0 auto;
-      padding:20px 16px 48px;
-    }
-    header{
-      display:flex;align-items:center;gap:12px;justify-content:space-between;margin-bottom:16px;
-    }
-    .title{
-      display:flex;align-items:center;gap:12px;
-    }
-    .title h1{font-size:20px;margin:0}
-    .pill{
-      background:rgba(34,197,94,.15);
-      color:#a7f3d0;
-      padding:6px 12px;border-radius:999px;font-size:12px;border:1px solid rgba(34,197,94,.35);
-    }
-    .card{
-      background:linear-gradient(180deg,#101a2b,#0f1828);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:var(--radius);
-      padding:16px;
-      box-shadow:0 10px 30px rgba(0,0,0,.35);
-      backdrop-filter: blur(6px);
-    }
-    .grid{display:grid; gap:12px}
-    @media(min-width:720px){ .grid-cols-2{grid-template-columns:1fr 1fr} }
-    label{font-size:13px;color:var(--muted);display:block;margin-bottom:6px}
-    input, select, button, textarea{
-      width:100%; border-radius:12px; border:1px solid rgba(255,255,255,.12);
-      background:#0d1627; color:var(--text); padding:12px; font-size:16px;
-      outline:none;
-    }
-    input:focus, select:focus, textarea:focus{ border-color:rgba(34,197,94,.5); box-shadow:0 0 0 3px rgba(34,197,94,.2) }
-    .row{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
-    .row-3{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px }
-    .btn{ display:inline-flex; align-items:center; justify-content:center; gap:8px; font-weight:600; cursor:pointer }
-    .btn-primary{ background:var(--accent); color:#052e19; border:none }
-    .btn-primary:hover{ background:var(--accent-2) }
-    .btn-ghost{ background:transparent; border:1px solid rgba(255,255,255,.16)}
-    .btn-danger{ background:var(--danger); border:none }
-    .muted{ color:var(--muted) }
-    .ok{ color:#86efac }
-    .warn{ color:var(--warn) }
-    table{ width:100%; border-collapse: collapse; margin-top:12px; font-size:14px }
-    th, td{ padding:10px; border-bottom:1px dashed rgba(255,255,255,.08); text-align:left }
-    th{ color:var(--muted); font-weight:600 }
-    tr:hover td{ background:#0e192b }
-    .success-badge{ display:inline-flex; gap:8px; align-items:center; font-size:13px; padding:6px 10px; border-radius:999px; background:rgba(34,197,94,.15); border:1px solid rgba(34,197,94,.35); color:#a7f3d0 }
-    .chip{ font-size:12px; color:#cbd5e1; border:1px solid rgba(255,255,255,.16); padding:6px 8px; border-radius:999px }
-    footer{ color:var(--muted); font-size:12px; margin-top:24px; }
-    .bar{
-      height:10px; border-radius:999px; background:#0a0f1d; border:1px solid rgba(255,255,255,.08);
-      overflow:hidden;
-    }
-    .bar > div{ height:100%; background:linear-gradient(90deg,#22c55e,#16a34a); width:0% }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>💪 SitUp Tracker</title>
+<style>
+  :root{
+    --bg:#0f172a; --card:#111827; --line:#1f2937; --text:#e2e8f0; --muted:#94a3b8;
+    --primary:#22c55e; --danger:#ef4444; --btn:#1f2937;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",sans-serif}
+  .wrap{max-width:900px;margin:0 auto;padding:20px;display:grid;gap:16px}
+  h1{margin:0 0 6px;text-align:center}
+  .grand{display:flex;justify-content:center}
+  .grand-pill{background:#1f2937;color:#e2e8f0;border:1px solid #334155;border-radius:999px;padding:6px 12px;font-weight:700}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .big{font-size:44px;font-weight:800;text-align:center}
+  .muted{color:var(--muted);font-size:12px}
+  button{border:0;border-radius:12px;padding:12px 14px;background:var(--btn);color:var(--text);cursor:pointer}
+  .primary{background:var(--primary);color:#052e16}
+  .danger{background:var(--danger)}
+  .ghost{background:#1f2937}
+  .grid-btn{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  input[type="number"],input[type="date"]{width:100%;padding:10px;border-radius:10px;border:1px solid #374151;background:#0b1220;color:#e2e8f0}
+  table{width:100%;border-collapse:collapse}
+  th,td{padding:10px;border-bottom:1px solid #1f2937;font-size:14px}
+  td.end{white-space:nowrap}
+</style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <div class="title">
-        <img src="icon-512.png" alt="" width="36" height="36" style="border-radius:10px;border:1px solid rgba(255,255,255,.2)">
-        <div>
-          <h1>บันทึกออกกำลัง – สายแรงต้าน</h1>
-          <div class="muted" id="subtitle">ติดตั้งลงเครื่องเพื่อใช้งานแบบแอป (PWA)</div>
-        </div>
-      </div>
-      <button id="installBtn" class="btn btn-ghost" style="display:none">ติดตั้งเป็นแอป</button>
-    </header>
+<div class="wrap">
+  <h1>💪 SitUp Tracker</h1>
+  <div class="grand"><div id="grandTotal" class="grand-pill">รวมทั้งหมด 0 ครั้ง</div></div>
 
-    <div class="card grid grid-cols-2" style="gap:16px">
+  <!-- Session panel -->
+  <div class="card" id="sessionCard">
+    <div class="row">
       <div>
-        <label for="date">วันที่</label>
+        <div class="muted">วันที่</div>
         <input type="date" id="date">
       </div>
       <div>
-        <label>วันในสัปดาห์</label>
-        <div class="chip" id="weekday">-</div>
-      </div>
-
-      <div class="row-3" style="grid-column:1/-1">
-        <div>
-          <label for="m1">เช้า</label>
-          <input type="number" id="m1" inputmode="numeric" min="0" placeholder="0">
-        </div>
-        <div>
-          <label for="m2">เที่ยง</label>
-          <input type="number" id="m2" inputmode="numeric" min="0" placeholder="0">
-        </div>
-        <div>
-          <label for="m3">เย็น</label>
-          <input type="number" id="m3" inputmode="numeric" min="0" placeholder="0">
-        </div>
-      </div>
-
-      <div>
-        <label>รวมทั้งวัน</label>
-        <div class="bar"><div id="progress"></div></div>
-        <div style="display:flex; gap:8px; margin-top:8px">
-          <div class="chip">รวม: <span id="sum">0</span> ครั้ง</div>
-          <div class="chip">เป้าหมาย: <span id="target">-</span> ครั้ง</div>
-          <div class="chip" id="status">สถานะ: -</div>
-        </div>
-      </div>
-
-      <div class="row" style="align-items:end">
-        <button id="save" class="btn btn-primary">บันทึกวันนี้</button>
-        <button id="clearDay" class="btn btn-ghost">ลบของวันนี้</button>
-      </div>
-
-      <div style="grid-column:1/-1; display:flex; gap:8px; flex-wrap:wrap">
-        <button id="exportCSV" class="btn btn-ghost">ส่งออก CSV</button>
-        <button id="backupJSON" class="btn btn-ghost">สำรองข้อมูล (JSON)</button>
-        <label class="btn btn-ghost" style="cursor:pointer">
-          นำเข้าข้อมูล
-          <input id="restoreJSON" type="file" accept="application/json" style="display:none">
-        </label>
-        <button id="resetAll" class="btn btn-danger">ล้างข้อมูลทั้งหมด</button>
+        <div class="muted">เป้าหมายวันนี้ (ครั้ง)</div>
+        <input type="number" id="goal" min="0" step="1" placeholder="เช่น 100">
       </div>
     </div>
 
-    <div class="card" style="margin-top:16px">
-      <div style="display:flex; align-items:center; justify-content:space-between; gap:10px; margin-bottom:12px">
-        <div class="success-badge">
-          <span>📈</span> 
-          <span>รายการย้อนหลัง / แผน 30 วัน (เริ่ม 19/08/2025)</span>
-        </div>
-        <div class="muted">แตะหัวตารางเพื่อเรียง</div>
-      </div>
-      <table id="logTable">
-        <thead>
-          <tr>
-            <th data-key="date">วันที่</th>
-            <th data-key="weekday">วัน</th>
-            <th data-key="target">เป้าหมาย</th>
-            <th data-key="total">ทำได้</th>
-            <th data-key="status">สถานะ</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      </table>
+    <div class="big" id="counter">0</div>
+    <div style="text-align:center" id="progressText" class="muted">ยังไม่ได้เริ่ม</div>
+
+    <div class="grid-btn" style="margin-top:12px">
+      <button onclick="add(1)">+1</button>
+      <button onclick="add(5)">+5</button>
+      <button onclick="add(10)">+10</button>
+      <button class="ghost" onclick="add(-1)">-1</button>
     </div>
 
-    <footer>
-      เคล็ดลับ: เป้าหมายจะเพิ่มทีละ <b>5 ครั้งทุก 2 วัน</b> เริ่มต้นที่ 20 ครั้ง (วันที่ 19/08/2025).
-      คุณสามารถบันทึกแบบแบ่งเป็นเช้า/เที่ยง/เย็น และระบบจะรวมให้เองอัตโนมัติ
-      <br>ต้องการติดตั้งเป็นแอป: เปิดหน้านี้ผ่าน Chrome/Edge บนมือถือ แล้วกด “ติดตั้งเป็นแอป”
-    </footer>
+    <div class="row" style="margin-top:12px">
+      <button class="primary" onclick="startSession()">เริ่ม/ต่อเซสชัน</button>
+      <button class="danger" onclick="resetCount()">รีเซ็ตนับ</button>
+    </div>
+    <div class="row" style="margin-top:8px">
+      <button class="primary" onclick="saveToday()">บันทึกวันนี้</button>
+      <button class="ghost" onclick="undoLast()">ย้อนกลับครั้งล่าสุด</button>
+    </div>
   </div>
 
+  <!-- History -->
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <h3 style="margin:0">บันทึกย้อนหลัง</h3>
+      <div>
+        <button class="ghost" onclick="exportJSON()">ส่งออก JSON</button>
+        <button class="ghost" onclick="importJSON()">นำเข้า JSON</button>
+        <input id="fileImport" type="file" accept="application/json" style="display:none">
+      </div>
+    </div>
+    <div class="muted" id="summaryLine" style="margin:6px 0 10px"></div>
+    <div style="overflow:auto">
+      <table id="historyTbl">
+        <thead>
+          <tr><th>วันที่</th><th>รวม</th><th>เป้า</th><th>สถานะ</th><th class="end">จัดการ</th></tr>
+        </thead>
+        <tbody id="historyBody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
 <script>
-// ==== Configuration ====
-const START_DATE = "2025-08-19"; // เริ่มแผน
-const BASE = 20;                  // จุดเริ่มต้น
-const STEP_DAYS = 2;              // เพิ่มทุกกี่วัน
-const STEP_COUNT = 5;             // เพิ่มครั้งละกี่ครั้ง
-const INITIAL_LOGS = [
-  { date: "2025-08-19", total: 20 },
-  { date: "2025-08-20", total: 35 },
-  { date: "2025-08-21", total: 40 },
-];
+/* ===== DB (localStorage) ===== */
+const KEY='su_db';
+const $=id=>document.getElementById(id);
+const todayISO=()=>new Date().toISOString().slice(0,10);
+const readDB=()=>{try{return JSON.parse(localStorage.getItem(KEY)||'{}')}catch{return{}}}
+const writeDB=db=>localStorage.setItem(KEY,JSON.stringify(db));
 
-// ==== Utilities ====
-function toISODate(d){ return d.toISOString().slice(0,10); }
-function fromInputDate(str){ return new Date(str + "T00:00:00"); }
-function diffDays(a,b){
-  const A = new Date(a+"T00:00:00"), B=new Date(b+"T00:00:00");
-  return Math.round((B - A)/(1000*60*60*24));
-}
-function formatTH(dstr){
-  const [y,m,d]=dstr.split("-");
-  return `${d}/${m}/${y}`;
-}
-const WDAY_TH = ["อาทิตย์","จันทร์","อังคาร","พุธ","พฤหัสบดี","ศุกร์","เสาร์"];
-function weekdayTH(dstr){ return WDAY_TH[new Date(dstr+"T00:00:00").getDay()]; }
+/* ===== State ===== */
+let count=0, stack=[]; // สำหรับ undo
+let running=false, startTime=0;
 
-function targetForDate(dateStr){
-  const days = Math.max(0, diffDays(START_DATE, dateStr));
-  const steps = Math.floor(days / STEP_DAYS);
-  return BASE + steps * STEP_COUNT;
+/* ===== UI helpers ===== */
+function updateUI(){
+  $('counter').textContent=count;
+  const g = parseInt($('goal').value||0,10);
+  const done = g>0 ? Math.min(100, Math.round(count/g*100)) : 0;
+  $('progressText').textContent = g>0 ? `ความคืบหน้า: ${count}/${g} (${done}%)` : `นับสะสม: ${count}`;
+}
+function setToday(){
+  $('date').value = todayISO();
+}
+function updateGrandTotal(){
+  const db=readDB();
+  const sum = Object.values(db).reduce((s,e)=>s+(e?.total||0),0);
+  $('grandTotal').textContent = `รวมทั้งหมด ${sum} ครั้ง`;
 }
 
-// ==== State ====
-const KEY = "reslog-state-v1";
-let state = JSON.parse(localStorage.getItem(KEY) || "{}");
-if(!state.entries){
-  state.entries = {};
-  // seed initial logs
-  INITIAL_LOGS.forEach(x => state.entries[x.date] = { m1: x.total, m2:0, m3:0 });
+/* ===== Actions ===== */
+function add(n){
+  count = Math.max(0, count + n);
+  if(n!==0) stack.push(n);
+  updateUI();
 }
-localStorage.setItem(KEY, JSON.stringify(state));
-
-// ==== Elements ====
-const $date = document.getElementById("date");
-const $weekday = document.getElementById("weekday");
-const $m1 = document.getElementById("m1");
-const $m2 = document.getElementById("m2");
-const $m3 = document.getElementById("m3");
-const $sum = document.getElementById("sum");
-const $target = document.getElementById("target");
-const $status = document.getElementById("status");
-const $progress = document.getElementById("progress");
-const $save = document.getElementById("save");
-const $clearDay = document.getElementById("clearDay");
-const $table = document.getElementById("logTable").querySelector("tbody");
-const $exportCSV = document.getElementById("exportCSV");
-const $backupJSON = document.getElementById("backupJSON");
-const $restoreJSON = document.getElementById("restoreJSON");
-const $resetAll = document.getElementById("resetAll");
-const $installBtn = document.getElementById("installBtn");
-
-// set default date = today (local) if within 30 days window; else start date
-const todayISO = toISODate(new Date());
-$date.value = todayISO;
-
-// if no entry, show zeros; else load
-function loadFor(dateStr){
-  $weekday.textContent = weekdayTH(dateStr);
-  const t = targetForDate(dateStr);
-  $target.textContent = t;
-  const e = state.entries[dateStr] || {m1:0,m2:0,m3:0};
-  $m1.value = e.m1 || 0;
-  $m2.value = e.m2 || 0;
-  $m3.value = e.m3 || 0;
-  updateSum();
+function resetCount(){
+  if(!confirm('รีเซ็ตตัวนับวันนี้?')) return;
+  count=0; stack=[]; updateUI();
 }
-function updateSum(){
-  const a = parseInt($m1.value || 0), b=parseInt($m2.value || 0), c=parseInt($m3.value || 0);
-  const total = a+b+c;
-  $sum.textContent = total;
-  const t = parseInt($target.textContent || 0);
-  const pct = t>0 ? Math.min(100, Math.round(total*100/t)) : 0;
-  $progress.style.width = pct + "%";
-  $status.textContent = total >= t ? "ถึงเป้าหมาย" : (total > 0 ? "กำลังไปได้ดี" : "ยังไม่เริ่ม");
-  $status.className = total >= t ? "ok" : (total > 0 ? "warn" : "muted");
+function startSession(){
+  if(!running){ running=true; startTime=Date.now(); alert('เริ่มเซสชันแล้ว ✨'); }
+  else { alert('กำลังนับอยู่… กดบันทึกเพื่อจบเซสชัน'); }
+}
+function undoLast(){
+  if(!stack.length) return;
+  const step=stack.pop();
+  count = Math.max(0, count - step);
+  updateUI();
 }
 
-function saveCurrent(){
-  const d = $date.value;
-  state.entries[d] = {
-    m1: parseInt($m1.value || 0),
-    m2: parseInt($m2.value || 0),
-    m3: parseInt($m3.value || 0)
-  };
-  localStorage.setItem(KEY, JSON.stringify(state));
-  renderTable();
-}
-function clearDay(){
-  const d = $date.value;
-  delete state.entries[d];
-  localStorage.setItem(KEY, JSON.stringify(state));
-  loadFor(d);
-  renderTable();
-}
+/* ===== Save/Load ===== */
+function saveToday(){
+  // Popup ยืนยันก่อนบันทึก (ถามเรื่องสควอทด้วย)
+  const ok = confirm('ยืนยันบันทึกวันนี้?\n\nวันนี้คุณทำ "สควอท" ไปแล้วหรือยัง?\n\nกด "ตกลง" เพื่อบันทึก / "ยกเลิก" เพื่อกลับไปเช็กก่อน');
+  if(!ok) return;
 
-function renderTable(sortKey="date", asc=true){
-  // Build an array of rows for last 60 days around start
-  const rows = [];
-  const maxDays = 60; // allow more than 30 days for user request
-  for(let i=0;i<maxDays;i++){
-    const d = new Date(START_DATE+"T00:00:00");
-    d.setDate(d.getDate()+i);
-    const iso = toISODate(d);
-    const e = state.entries[iso];
-    const total = e ? (e.m1 + e.m2 + e.m3) : 0;
-    rows.push({
-      date: iso,
-      weekday: weekdayTH(iso),
-      target: targetForDate(iso),
-      total: total,
-      status: total >= targetForDate(iso) ? "✅" : (total>0 ? "↗︎" : "")
-    });
+  const db=readDB();
+  const d=$('date').value||todayISO();
+  const g=parseInt($('goal').value||0,10);
+  db[d]={total:count, goal:g, ts:Date.now()};
+  writeDB(db);
+  running=false; stack=[];
+  renderHistory();
+  updateGrandTotal(); // อัปเดตรวมทั้งหมดด้านบน
+  alert('บันทึกแล้ว ✓');
+}
+function deleteDay(d){
+  const db=readDB();
+  if(!db[d]) return;
+  if(confirm(`ลบข้อมูลวันที่ ${d}?`)){
+    delete db[d]; writeDB(db); renderHistory(); updateGrandTotal();
   }
-  rows.sort((A,B)=>{
-    if (sortKey==="date"){
-      return asc ? (A.date.localeCompare(B.date)) : (B.date.localeCompare(A.date));
-    } else {
-      return asc ? (A[sortKey] - B[sortKey]) : (B[sortKey] - A[sortKey]);
-    }
+}
+
+/* ===== History render ===== */
+function renderHistory(){
+  const tbody=$('historyBody'); tbody.innerHTML='';
+  const db=readDB();
+  const arr=Object.entries(db).map(([date,v])=>({date,...v})).sort((a,b)=>b.date.localeCompare(a.date));
+  if(!arr.length){ tbody.innerHTML='<tr><td colspan="5" class="muted">ยังไม่มีบันทึก</td></tr>'; $('summaryLine').textContent=''; return; }
+
+  let sum=0, hit=0, goalSum=0;
+  arr.forEach(it=>{
+    sum+=it.total||0; goalSum+=it.goal||0; if(it.goal>0 && it.total>=it.goal) hit++;
+    const tr=document.createElement('tr');
+    const status = it.goal>0 ? (it.total>=it.goal? '✅ ถึงเป้า' : '⌛ ยังไม่ถึง') : '—';
+    tr.innerHTML = `
+      <td>${it.date}</td>
+      <td>${it.total||0}</td>
+      <td>${it.goal||0}</td>
+      <td>${status}</td>
+      <td class="end">
+        <button class="ghost" onclick="loadDay('${it.date}')">แก้</button>
+        <button class="ghost" onclick="deleteDay('${it.date}')">ลบ</button>
+      </td>`;
+    tbody.appendChild(tr);
   });
-  $table.innerHTML = rows.map(r=>`
-    <tr>
-      <td>${formatTH(r.date)}</td>
-      <td>${r.weekday}</td>
-      <td>${r.target}</td>
-      <td>${r.total}</td>
-      <td>${r.status}</td>
-    </tr>
-  `).join("");
+  $('summaryLine').textContent = `รวมช่วงที่แสดง ${sum} ครั้ง | วันถึงเป้า ${hit}/${arr.length}` + (goalSum? ` | เป้ารวม ${goalSum}` : '');
 }
 
-// CSV Export
-function toCSV(){
-  const lines = ["วันที่,วัน,เป้าหมาย,ทำได้"];
-  const maxDays = 60;
-  for(let i=0;i<maxDays;i++){
-    const d = new Date(START_DATE+"T00:00:00");
-    d.setDate(d.getDate()+i);
-    const iso = toISODate(d);
-    const e = state.entries[iso];
-    const total = e ? (e.m1 + e.m2 + e.m3) : 0;
-    lines.push([formatTH(iso), weekdayTH(iso), targetForDate(iso), total].join(","));
-  }
-  return lines.join("\n");
-}
-function download(filename, text){
-  const blob = new Blob([text], {type:"text/plain;charset=utf-8"});
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = filename;
-  link.click();
-  URL.revokeObjectURL(link.href);
+function loadDay(d){
+  const db=readDB(); const e=db[d]||{};
+  $('date').value=d;
+  $('goal').value=e.goal||'';
+  count=e.total||0; stack=[]; running=false;
+  updateUI();
+  window.scrollTo({top:0,behavior:'smooth'});
 }
 
-// Backup/Restore JSON
-function backupJSON(){
-  download("reslog-backup.json", JSON.stringify(state, null, 2));
+/* ===== Export / Import ===== */
+function exportJSON(){
+  const payload={version:1, db:readDB()};
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
+  a.download='situp-export.json'; a.click(); URL.revokeObjectURL(a.href);
 }
-function restoreJSON(file){
-  const reader = new FileReader();
-  reader.onload = () => {
-    try{
-      const obj = JSON.parse(reader.result);
-      if(obj && obj.entries){
-        state = obj;
-        localStorage.setItem(KEY, JSON.stringify(state));
-        loadFor($date.value);
-        renderTable();
-        alert("นำเข้าข้อมูลเรียบร้อย");
-      } else {
-        alert("ไฟล์ไม่ถูกต้อง");
-      }
-    } catch(e){
-      alert("เกิดข้อผิดพลาดในการอ่านไฟล์");
-    }
-  };
-  reader.readAsText(file);
+function importJSON(){
+  $('fileImport').click();
 }
-
-// Events
-$date.addEventListener("change", ()=> loadFor($date.value));
-[$m1,$m2,$m3].forEach(el => el.addEventListener("input", updateSum));
-$save.addEventListener("click", saveCurrent);
-$clearDay.addEventListener("click", clearDay);
-$exportCSV.addEventListener("click", ()=> download("reslog.csv", toCSV()));
-$backupJSON.addEventListener("click", backupJSON);
-$restoreJSON.addEventListener("change", (e)=> { if(e.target.files[0]) restoreJSON(e.target.files[0]); });
-$resetAll.addEventListener("click", ()=>{
-  if(confirm("ล้างข้อมูลทั้งหมด?")){
-    state = { entries: {} };
-    localStorage.setItem(KEY, JSON.stringify(state));
-    loadFor($date.value);
-    renderTable();
-  }
+$('fileImport').addEventListener('change', async (e)=>{
+  const file=e.target.files[0]; if(!file) return;
+  try{
+    const txt=await file.text(); const obj=JSON.parse(txt);
+    const db = obj?.db && typeof obj.db==='object' ? obj.db : obj;
+    writeDB(db||{}); renderHistory(); updateGrandTotal(); alert('นำเข้าสำเร็จ ✓');
+  }catch{ alert('ไฟล์ไม่ถูกต้อง'); }
 });
 
-// Sorting by header click
-document.querySelectorAll("#logTable thead th").forEach(th => {
-  let asc=true;
-  th.addEventListener("click", ()=>{
-    const key = th.dataset.key || "date";
-    asc = !asc;
-    renderTable(key, asc);
-  });
+/* ===== Boot ===== */
+document.addEventListener('DOMContentLoaded', ()=>{
+  $('date').value = todayISO();
+  updateUI();
+  renderHistory();
+  updateGrandTotal();
 });
-
-// Init
-loadFor($date.value);
-renderTable();
-
-// ==== PWA install prompt ====
-let deferredPrompt = null;
-window.addEventListener('beforeinstallprompt', (e)=>{
-  e.preventDefault();
-  deferredPrompt = e;
-  document.getElementById('installBtn').style.display = 'inline-flex';
-});
-document.getElementById('installBtn').addEventListener('click', async ()=>{
-  if(!deferredPrompt) return;
-  deferredPrompt.prompt();
-  const { outcome } = await deferredPrompt.userChoice;
-  if(outcome === 'accepted'){
-    document.getElementById('installBtn').style.display = 'none';
-  }
-  deferredPrompt = null;
-});
-
-// Register service worker
-if('serviceWorker' in navigator){
-  window.addEventListener('load', ()=>{
-    navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
-  });
-}
 </script>
 </body>
 </html>
