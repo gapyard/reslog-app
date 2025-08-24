@@ -92,7 +92,7 @@
 
 <!-- เวอร์ชันโชว์มุมล่างขวา -->
 <div style="position:fixed;right:10px;bottom:10px;font:12px/1.2 system-ui;color:#9ca3af;opacity:.8">
-  v: build-2025-08-24-1
+  v: build-2025-08-24-2
 </div>
 
 <script>
@@ -105,7 +105,7 @@ const writeDB=db=>localStorage.setItem(KEY,JSON.stringify(db));
 
 /* ===== State ===== */
 let count=0, stack=[]; // สำหรับ undo
-let running=false, startTime=0;
+let running=false;
 
 /* ===== UI helpers ===== */
 function updateUI(){
@@ -132,7 +132,7 @@ function resetCount(){
   count=0; stack=[]; updateUI();
 }
 function startSession(){
-  if(!running){ running=true; startTime=Date.now(); alert('เริ่มเซสชันแล้ว ✨'); }
+  if(!running){ running=true; alert('เริ่มเซสชันแล้ว ✨'); }
   else { alert('กำลังนับอยู่… กดบันทึกเพื่อจบเซสชัน'); }
 }
 function undoLast(){
