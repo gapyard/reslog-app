@@ -90,6 +90,11 @@
   </div>
 </div>
 
+<!-- เวอร์ชันโชว์มุมล่างขวา -->
+<div style="position:fixed;right:10px;bottom:10px;font:12px/1.2 system-ui;color:#9ca3af;opacity:.8">
+  v: build-2025-08-24-1
+</div>
+
 <script>
 /* ===== DB (localStorage) ===== */
 const KEY='su_db';
@@ -109,9 +114,7 @@ function updateUI(){
   const done = g>0 ? Math.min(100, Math.round(count/g*100)) : 0;
   $('progressText').textContent = g>0 ? `ความคืบหน้า: ${count}/${g} (${done}%)` : `นับสะสม: ${count}`;
 }
-function setToday(){
-  $('date').value = todayISO();
-}
+function setToday(){ $('date').value = todayISO(); }
 function updateGrandTotal(){
   const db=readDB();
   const sum = Object.values(db).reduce((s,e)=>s+(e?.total||0),0);
@@ -141,7 +144,7 @@ function undoLast(){
 
 /* ===== Save/Load ===== */
 function saveToday(){
-  // Popup ยืนยันก่อนบันทึก (ถามเรื่องสควอทด้วย)
+  // Popup ยืนยันก่อนบันทึก
   const ok = confirm('ยืนยันบันทึกวันนี้?\n\nวันนี้คุณทำ "สควอท" ไปแล้วหรือยัง?\n\nกด "ตกลง" เพื่อบันทึก / "ยกเลิก" เพื่อกลับไปเช็กก่อน');
   if(!ok) return;
 
@@ -152,7 +155,7 @@ function saveToday(){
   writeDB(db);
   running=false; stack=[];
   renderHistory();
-  updateGrandTotal(); // อัปเดตรวมทั้งหมดด้านบน
+  updateGrandTotal();
   alert('บันทึกแล้ว ✓');
 }
 function deleteDay(d){
@@ -205,9 +208,7 @@ function exportJSON(){
   a.href=URL.createObjectURL(new Blob([JSON.stringify(payload,null,2)],{type:'application/json'}));
   a.download='situp-export.json'; a.click(); URL.revokeObjectURL(a.href);
 }
-function importJSON(){
-  $('fileImport').click();
-}
+function importJSON(){ $('fileImport').click(); }
 $('fileImport').addEventListener('change', async (e)=>{
   const file=e.target.files[0]; if(!file) return;
   try{
